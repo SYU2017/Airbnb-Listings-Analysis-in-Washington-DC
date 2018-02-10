@@ -7,81 +7,105 @@
     <title>DC Airbnb Data</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
                 <div class="col-md-12 jumbotron text-center">
-                    <h1>Airbnb Datasets Analysis in Washington, D.C.</h1>
+                    <h2><strong>Airbnb Datasets Analysis in Washington, D.C.<strong></h2>
                     <p>Use the interactive charts below to explore the Airbnb and Crime datasets</p>
                 </div>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="well">
-                    <h5>SELECT Neighborhood:</h5>
+                    <h4>SELECT Neighborhood:</h4>
                     <select id="selDataset" onchange="optionChanged(this.value)"></select>
                 </div>
                 
-                <div class="panel panel-primary col-md-6">
+                <div class="panel panel-primary col-md-4">
                     <div class="panel-heading">
                         <h3 class="panel-title">Entire Home Data</h3>
                     </div>
                     <div id="entire" class="panel-body"></div>
                 </div>
            
-                <div class="panel panel-primary col-md-6">
+                <div class="panel panel-primary col-md-4">
                     <div class="panel-heading">
                         <h3 class="panel-title">Private Room Data</h3>
                     </div>
                     <div id="private" class="panel-body"></div>
                 </div>
           
-                <div class="panel panel-primary col-md-6">
+                <div class="panel panel-primary col-md-4">
                     <div class="panel-heading">
                         <h3 class="panel-title">Shared Room Data</h3>
                     </div>
                     <div id="shared" class="panel-body"></div>
                 </div>
+            </div>
 
-                <div class="panel panel-primary col-md-6">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Neighborhood Crime Data</h3>
-                    </div>
-                    <div id="crime" class="panel-body"></div>
+        </div>
+   
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <div id="pie"></div>
+                </div>
+                <div class="col-md-6">
+                    <div id="gauge"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12", style="display:inline-block",>
+                <div class="topleft" style="text-align:center; float:left;">
+                    <div id="bubble"></div>
+                </div>
+            </div>     
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 jumbotron text-center">
+                <h2><strong>Airbnb Listing vs Number of Crimes in Washington, D.C. Neighborhood</strong></h2>
+                    
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="scatter1"></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="scatter2"></div>
                 </div>
             </div>
 
         </div>
+
     </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div id="pie"></div>
-        </div>
-        <div class="col-md-6">
-            <div id="gauge"></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div id="bubble"></div>
-        </div>
+
+    
+
 
     <script>
 
         
         function updateEntireData(entireData) {
-            // Reference to Panel element for sample metadata
+            // Reference to Panel element for entireData
             var PANEL = document.getElementById("entire");
             // Clear any existing metadata
             PANEL.innerHTML = '';
             // Loop through all of the keys in the json response and
-            // create new metadata tags
-            for(var key in entireData) {
+            // create new entireData tags
+            for(var key in entireData[0]) {
                 h6tag = document.createElement("h6");
-                h6Text = document.createTextNode(`${key}: ${entireData[key]}`);
+                int_val = Number(entireData[0][key]).toFixed(0)
+                h6Text = document.createTextNode(`${key}: ${int_val}`);
                 h6tag.append(h6Text);
 
                 PANEL.appendChild(h6tag);
@@ -89,15 +113,16 @@
         }
 
         function updatePrivateData(privateData) {
-            // Reference to Panel element for sample metadata
+            // Reference to Panel element for privateData
             var PANEL = document.getElementById("private");
-            // Clear any existing metadata
+            // Clear any existing privateData
             PANEL.innerHTML = '';
             // Loop through all of the keys in the json response and
-            // create new metadata tags
-            for(var key in privateData) {
+            // create new privateData tags
+            for(var key in privateData[0]) {
                 h6tag = document.createElement("h6");
-                h6Text = document.createTextNode(`${key}: ${privateData[key]}`);
+                int_val = Number(privateData[0][key]).toFixed(0)
+                h6Text = document.createTextNode(`${key}: ${int_val}`);
                 h6tag.append(h6Text);
 
                 PANEL.appendChild(h6tag);
@@ -105,33 +130,16 @@
         }
 
         function updateSharedData(sharedData) {
-            // Reference to Panel element for sample metadata
+            // Reference to Panel element for sharedData
             var PANEL = document.getElementById("shared");
-            // Clear any existing metadata
+            // Clear any existing sharedData
             PANEL.innerHTML = '';
              // Loop through all of the keys in the json response and
-            // create new metadata tags
-            for(var key in sharedData) {
+            // create new sharedData tags
+            for(var key in sharedData[0]) {
                 h6tag = document.createElement("h6");
-                h6Text = document.createTextNode(`${key}: ${sharedData[key]}`);
-                h6tag.append(h6Text);
-
-                PANEL.appendChild(h6tag);
-            }
-        }
-
-        function updateCrimeData(crimeData) {
-
-            // Reference to Panel element for sample metadata
-            var PANEL = document.getElementById("crime");
-
-            // Clear any existing metadata
-            PANEL.innerHTML = '';
-             // Loop through all of the keys in the json response and
-            // create new metadata tags
-            for(var key in crimeData) {
-                h6tag = document.createElement("h6");
-                h6Text = document.createTextNode(`${key}: ${crimeData[key]}`);
+                int_val = Number(sharedData[0][key]).toFixed(0)
+                h6Text = document.createTextNode(`${key}: ${int_val}`);
                 h6tag.append(h6Text);
 
                 PANEL.appendChild(h6tag);
@@ -142,25 +150,32 @@
         function buildCharts(listingData) {
 
             // Loop through listprice data and find the Airbnb list host information
-            //var labels=Host ID: listingData[0]['host_id']\
-                        //<br>Room Type: listingData[0]['room_type']\
-                       // <br>Minimum Nights: listingData[0]['minimum_nights'] %s nights\
-                        //<br>Availability_365: listingData[0]['availability_365'] %s days];
+            
+            //var labels=listingData[0]['room_type']+listingData[0]['minimum_nights'] +listingData[0]['availability_365'];
             // Build Bubble Chart
             var bubbleLayout = {
-                margin: { t: 0 },
+                margin: {  
+                    t: 50,    
+                },
                 hovermode: 'closest',
-                xaxis: { title: 'Airbnb ID' }
+                title: '<b>Airbnb Rental Price per Airbnb ID<b>',
+                xaxis: { title: 'Airbnb ID' },
+                yaxis: {title: "Log Airbnb Rental Price ($)", type: 'log', autorange: true},
+                height: 800,
+                width: 1300,
             };
+
+
             var bubbleData = [{
                 x: listingData[0]['airbnb_ids'],
                 y: listingData[0]['price'],
                 text: listingData[0]['room_type'],
                 mode: 'markers',
                 marker: {
-                    size: listingData[0]['price'],
                     color: listingData[0]['airbnb_ids'],
                     colorscale: "Earth",
+                    size: listingData[0]['price'].map(el => el/ 30),
+                
                 }
             }];
             var BUBBLE = document.getElementById('bubble');
@@ -176,7 +191,17 @@
             }];
 
             var pieLayout = {
-                margin: { t: 0, l: 0 }
+                hovermode:'closest',
+                margin: {
+                    r: 10,
+                    t: 45,
+                    b: 40,
+                    l: 10
+                 },
+               // margin: { t: 10, l: 10 },
+                title: '<b>Top 10 Airbnb Rental Price by Airbnb ID in Each Neighborhood</b>',
+                height: 400,
+                width: 600,
             };
 
             var PIE = document.getElementById('pie');
@@ -190,9 +215,9 @@
             var labels = listingData[0]['room_type'];
 
             // Return the listing Description for each airbnb ID in the dataset
-            //var labels = 'Host ID: listingData[0]['host_id']\
-                        //<br>Room Type: listingData[0]['room_type']\
-                       // <br>Minimum Nights: listingData[0]['minimum_nights'] %s nights\
+            //var labels = 'Host ID: listingData[0]['host_id']+\
+                        //<br>Room Type: listingData[0]['room_type']+\
+                       // <br>Minimum Nights: listingData[0]['minimum_nights'] %s nights+\
                        // <br>Availability_365: listingData[0]['availability_365'] %s days]';
     
 
@@ -223,15 +248,10 @@
             Plotly.d3.json(`/listprice/${neighbourhood}`, function(error, listingData) {
                 if (error) return console.warn(error);
 
-                buildCharts (listingData);
+                buildCharts(listingData);
                 
             });
 
-            Plotly.d3.json(`/crimedata/${neighbourhood}`, function(error, crimeData) {
-                if (error) return console.warn(error);
-
-                updateCrimeData(crimeData);
-            });
 
             Plotly.d3.json(`/entirehome/${neighbourhood}`, function(error, entireData) {
                 if (error) return console.warn(error);
@@ -253,6 +273,9 @@
 
 
             buildGauge(neighbourhood);
+    
+            buildScatter1();
+            buildScatter2();
 
         }
 
@@ -274,9 +297,11 @@
             })
         }
 
-        function optionChanged(newneighbourhood) {
-            // Fetch new data each time a new sample is selected
-            getData(newneighbourhood, updateCharts);
+        function optionChanged(newneighbourhoodname) {
+            // Fetch new data each time a new neighbourhood names is selected
+            getData(newneighbourhoodname, updateCharts);
+
+            
         }
 
         function init() {
@@ -346,7 +371,7 @@
                     }
                     }],
                 title: '<b>Crime Rate per Neighborhood  </b> <br> Washington DC 2017 ',
-                height: 500,
+                height: 400,
                 width: 500,
                 xaxis: {zeroline:false, showticklabels:false,
                             showgrid: false, range: [-1, 1]},
@@ -359,6 +384,81 @@
             });
         };
 
+        function buildScatter1() {
+
+            Plotly.d3.json(`/correlation`, function(error, correlationData) {
+                if (error) return console.warn(error);
+                correlationData = correlationData[0]
+                 // Create the Traces
+                var trace1 = {
+                    x: correlationData.number_of_crimes,
+                    y: correlationData.airbnb_counts_per_neighbourhood,
+                    mode: "markers",
+                    type: "scatter",
+                    name: "Airbnb rental amount",
+                    marker: {
+                    color: "#2077b4",
+                    symbol: "hexagram"
+                    }
+                };
+
+
+                // Create the data array for the plot
+                var data = [trace1];
+
+                // Define the plot layout
+                var layout = {
+                    title: "Airbnb listing Rental Amount vs Crime Counts in each Neighborhood",
+                    xaxis: { title: "Crime Counts" },
+                    yaxis: { title: "Airbnb listing Rental Amount" }
+                };
+
+                // Plot the chart to a div tag with id "plot"
+                var Scatter1 = document.getElementById('scatter1');
+                Plotly.newPlot("scatter1", data, layout);
+
+
+
+            })
+        }
+
+        function buildScatter2() {
+
+            Plotly.d3.json(`/correlation`, function(error, correlationData) {
+                if (error) return console.warn(error);
+                correlationData = correlationData[0]
+                 // Create the Traces
+                
+                var trace2 = {
+                    x: correlationData.number_of_crimes,
+                    y: correlationData.total_reviews_per_neighbourhood,
+                    mode: "markers",
+                    type: "scatter",
+                    name: "Airbnb Rental Total Reviews",
+                    marker: {
+                    color: "orange",
+                    symbol: "diamond-x"
+                    }
+                };
+
+                // Create the data array for the plot
+                var data = [trace2];
+
+                // Define the plot layout
+                var layout = {
+                    title: "Airbnb listing Total Review vs Crime Counts in each Neighborhood",
+                    xaxis: { title: "Crime Counts" },
+                    yaxis: { title: "Airbnb listing Total Review" }
+                };
+
+                // Plot the chart to a div tag with id "plot"
+                var Scatter2 = document.getElementById('scatter2');
+                Plotly.newPlot("scatter2", data, layout);
+
+
+
+            })
+        }
     </script>
 
 
