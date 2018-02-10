@@ -9,7 +9,7 @@ from datetime import datetime
 import numpy as np
 import pandas as pd
 
-from flask import Flask, jsonify, render_template, request, flash, redirect
+from flask import Flask, jsonify, render_template, request, flash, redirect, url_for
 
 
 #################################################
@@ -43,6 +43,20 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     return render_template("index.html")
+
+
+@app.route('/scatterplot', methods=['GET', 'POST'])
+def scatterplot():
+    if request.method == 'POST':
+        # do stuff when the form is submitted
+
+        # redirect to end the POST handling
+        # the redirect can be to the same route or somewhere else
+        return redirect(url_for('index'))
+
+    # show the form, it wasn't submitted
+    return render_template('scatterplot.html')
+
 
 # return List of neighbourhood names
 @app.route('/names')
@@ -100,11 +114,12 @@ def entirehome(neighbourhood):
     Entire_home_data= []
     Entire_home_dict = {}
     for result in Entire_home_Listings_results:
-        Entire_home_dict["Neighbourhood"] = result[0]
-        Entire_home_dict["Average_Entire_Home_Price"] = result[1]
+        
+        Entire_home_dict["Average_Entire_home_Price"] = result[1]
         Entire_home_dict["Average_Number_of_Reviews"] = result[2]
         Entire_home_dict["Average_Reviews_per_Month"] = result[3]
         Entire_home_dict["Average_Availability_365"] = result[4]
+
 
         Entire_home_data.append(Entire_home_dict)
         print (Entire_home_data)
@@ -125,7 +140,7 @@ def privateroom(neighbourhood):
     Private_room_dict = {}
     for result in Private_room_Listings_results:
         
-        Private_room_dict["Neighbourhood"] = result[0]
+        
         Private_room_dict["Average_Private_room_Price"] = result[1]
         Private_room_dict["Average_Number_of_Reviews"] = result[2]
         Private_room_dict["Average_Reviews_per_Month"] = result[3]
@@ -150,7 +165,7 @@ def sharedroom(neighbourhood):
     Shared_room_dict = {}
     for result in Shared_room_Listings_results:
         
-        Shared_room_dict["Neighbourhood"] = result[0]
+        
         Shared_room_dict["Average_Private_room_Price"] = result[1]
         Shared_room_dict["Average_Number_of_Reviews"] = result[2]
         Shared_room_dict["Average_Reviews_per_Month"] = result[3]
@@ -187,6 +202,22 @@ def listprice(neighbourhood):
     }]
     print(price_data)
     return jsonify(price_data)
+
+@app.route('/correlation')
+def correlation():
+            
+    NH_compare_data = pd.read_csv("neighbourhood_compare_data.csv")
+
+    neighbourhood_compare_data = [{
+        "neighbourhood": NH_compare_data["neighbourhood"].values.tolist(),
+        "airbnb_counts_per_neighbourhood": NH_compare_data ["airbnb_counts_per_neighbourhood"].values.tolist(),
+        "total_reviews_per_neighbourhood": NH_compare_data["total_reviews_per_neighbourhood"].values.tolist(),
+        "number_of_crimes": NH_compare_data ["number_of_crimes"].values.tolist()
+
+    }]
+
+    print(neighbourhood_compare_data)
+    return jsonify(neighbourhood_compare_data)
 
 if __name__ == "__main__":
     app.run(debug=True)
