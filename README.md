@@ -5,6 +5,8 @@ http://insideairbnb.com : listings.csv;  neighbourhoods.csv,
 
 http://opendata.dc.gov/datasets :  Crime_Incidents_in_2017.csv; Neighborhood_Clusters.csv
 
+I also deployed the FLASK APP to HEROKU:  https://airbnb-project2-gw.herokuapp.com/
+
 
 ![picture](image/image1.png)
 
