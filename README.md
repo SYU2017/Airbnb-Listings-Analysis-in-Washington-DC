@@ -9,7 +9,7 @@ http://opendata.dc.gov/datasets :  Crime_Incidents_in_2017.csv; Neighborhood_Clu
 ![picture](image/image1.png)
 
 
-![picture](image/image2.png)
+![picture](image/image_pie.png)
 
 
 ![picture](image/image3.png)
