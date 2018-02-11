@@ -1,13 +1,24 @@
-# GW-Project-2---Airbnb Listings Analysis in Washington DC(2017)
-
-Deploy the FLASK API to Heroku:   https://airbnb-project2-gw.herokuapp.com/
-
+i
 Our project will analyze data of Airbnb listings in Washington DC in May 2017.  We will create a dashboard to show variable factor of listings such as price, review, availability and crime in different neighborhoods and estimate their relationship.
 Following is the data origin:
 
 http://insideairbnb.com : listings.csv;  neighbourhoods.csv, 
 
 http://opendata.dc.gov/datasets :  Crime_Incidents_in_2017.csv; Neighborhood_Clusters.csv
+
+
+![picture](image/image1.png)
+
+
+![picture](image/image2.png)
+
+
+![picture](image/image3.png)
+
+
+![picture](image/image4.png)
+
+
 
 Step 1 - Flask API
 
