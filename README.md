@@ -11,10 +11,13 @@ I also deployed the FLASK APP to HEROKU:  https://airbnb-project2-gw.herokuapp.c
 ![picture](image/image1.png)
 
 
+
 ![picture](image/image_pie.png)
 
 
+
 ![picture](image/image3.png)
+
 
 
 ![picture](image/image4.png)
