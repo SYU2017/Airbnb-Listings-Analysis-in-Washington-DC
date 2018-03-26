@@ -1,11 +1,11 @@
-Our project will analyze data of Airbnb listings in Washington DC in May 2017.  I created a dashboard to show variable factor of listings such as price, review, availability and crime in different neighborhoods and estimate their relationship.
+# This project will analyze data of Airbnb listings in Washington DC in May 2017.  I created a dashboard to show variable factor of listings such as price, review, availability and crime in different neighborhoods and estimate their relationship.
 Following is the data origin:
 
 http://insideairbnb.com : listings.csv;  neighbourhoods.csv, 
 
 http://opendata.dc.gov/datasets :  Crime_Incidents_in_2017.csv; Neighborhood_Clusters.csv
 
-I also deployed the FLASK APP to HEROKU:  https://airbnb-project2-gw.herokuapp.com/
+## I also deployed the FLASK APP to HEROKU:  https://airbnb-project2-gw.herokuapp.com/
 
 
 ![picture](image/image1.png)
@@ -24,7 +24,7 @@ I also deployed the FLASK APP to HEROKU:  https://airbnb-project2-gw.herokuapp.c
 
 
 
-Step 1 - Flask API
+## Step 1 - Flask API
 
 1. Clean up the CSV data:  
 data_engineering_airbnb.ipynb;
@@ -73,7 +73,7 @@ Finally we outputted the data as JSON in the format specified in the routes belo
 
 
 
-Step 2 - Plotly.js
+## Step 2 - Plotly.js
 
 Use Plotly.js to build interactive charts for our dashboard.
 
@@ -109,7 +109,7 @@ Create a PIE chart that uses data from routes /listprice/<neighbourhood>  to dis
 
 Create a Gauge chart that uses data from routes /crimerate/<neighbourhood>  to display the crime rate in each neighbourhood. 
 
-Step 3 - Visualizing Data with D3 and Leaflet
+## Step 3 - Visualizing Data with D3 and Leaflet
 
 
 
