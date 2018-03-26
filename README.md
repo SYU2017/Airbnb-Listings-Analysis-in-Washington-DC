@@ -1,4 +1,4 @@
-Our project will analyze data of Airbnb listings in Washington DC in May 2017.  We will create a dashboard to show variable factor of listings such as price, review, availability and crime in different neighborhoods and estimate their relationship.
+Our project will analyze data of Airbnb listings in Washington DC in May 2017.  I created a dashboard to show variable factor of listings such as price, review, availability and crime in different neighborhoods and estimate their relationship.
 Following is the data origin:
 
 http://insideairbnb.com : listings.csv;  neighbourhoods.csv, 
